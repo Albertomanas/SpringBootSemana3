@@ -76,7 +76,6 @@ public class LlibreOpsBasic {
 	 * Retorna true o false en funcio de si existeix un llibre amb aquest ISBN
 	 * (Aquest metode no llanca excepcions!)
 	 */
-	@Transactional
 	public boolean existeix (String isbn){
 		try { 
 			Llibre llibre = this.carrega(isbn);
@@ -90,9 +89,17 @@ public class LlibreOpsBasic {
 	/**
 	 * Retorna quina es la recomanacio per el llibre indicat
 	 * Si el llibre indicat no existeix, retorna null
+	 * @throws LlibreNoExisteixException 
 	 */
-	public Recomanacio recomenacioPer (String isbn) {
-		return null;
+	@Transactional
+	public Recomanacio recomenacioPer (String isbn) throws LlibreNoExisteixException {
+		if (this.existeix(isbn)) {
+			Llibre llibre = this.carrega(isbn);
+			return llibre.getRecomanacio();
+		}
+		else {
+			return null;
+		}
 	}
 	
 }

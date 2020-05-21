@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
  * operacions de persistencia tal com indiquen les firmes dels metodes
  */
 
-@Component
+@Repository
 public class LlibreOpsBasic {
 	
 	@PersistenceContext

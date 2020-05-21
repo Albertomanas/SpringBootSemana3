@@ -53,7 +53,7 @@ public class LlibreOpsBasic {
 	 * @return true si s'ha esborrat el llibre, false si no existia
 	 */
 	@Transactional
-	public boolean elimina (String isbn) throws LlibreNoExisteixException{
+	public boolean elimina (String isbn){
 		
 		try {
 			Llibre llibre = this.carrega(isbn);
@@ -76,8 +76,15 @@ public class LlibreOpsBasic {
 	 * Retorna true o false en funcio de si existeix un llibre amb aquest ISBN
 	 * (Aquest metode no llanca excepcions!)
 	 */
-	public boolean existeix (String isbn) {
-		return false;
+	@Transactional
+	public boolean existeix (String isbn){
+		try { 
+			Llibre llibre = this.carrega(isbn);
+			return true;
+		}
+		catch (LlibreNoExisteixException e) {
+			return false;
+		}
 	}
 
 	/**

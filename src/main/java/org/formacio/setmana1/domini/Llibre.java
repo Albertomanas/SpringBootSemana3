@@ -2,6 +2,8 @@ package org.formacio.setmana1.domini;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -28,6 +30,9 @@ public class Llibre {
 
 	// fitxeu-vos que aquesta propietat, a la base de dades, se guarda com VARCHAR2, no com INT.
 	// Aixo requeria d'una annotacio especifica
+	
+	@Column(name= "LLI_RECOMANACIO")
+	@Enumerated(EnumType.STRING)  // VARCHAR(50) tenemos 
 	private Recomanacio recomanacio;
 	
 	public String getIsbn() {

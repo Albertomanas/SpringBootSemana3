@@ -52,14 +52,24 @@ public class LlibreOpsBasic {
 	 * @param isbn del llibre a eliminar
 	 * @return true si s'ha esborrat el llibre, false si no existia
 	 */
-	public boolean elimina (String isbn) {
-		return true;
+	@Transactional
+	public boolean elimina (String isbn) throws LlibreNoExisteixException{
+		
+		try {
+			Llibre llibre = this.carrega(isbn);
+			em.remove(llibre);
+			return true;
+		} catch (LlibreNoExisteixException e) { //Captamos excepción para tener código bajo control.
+			return false;
+		}
 	}
 	
 	/**
 	 * Guarda a bbdd l'estat del llibre indicat
 	 */
+	@Transactional
 	public void modifica (Llibre llibre) {
+		em.merge(llibre);
 	}
 	
 	/**
